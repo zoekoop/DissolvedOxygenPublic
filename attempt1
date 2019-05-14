@@ -1,19 +1,27 @@
 //dissolved oxygen monitor
 
-const int pin12 = 12;
-const int pin13 = 13;
+const int rx = 13;  // input - data in at pin 13  OR IS IT CONST BYYTE RX = 13
+const int tx = 12;  // output - data out at pin 12
+
+
+const int analogInPin = rx;   //analog input pin that the DO prob is attaced to
+const int analogOutPin = tx;  //anlog output pin that the LEF is attached to 
+
+int sensorvalue = 0;   //value read from the DO probe
+int outputvaue = 0;    //value output to PWM
 
 void setup() {
+pinMode(rx, INPUT);          //data incoming from the probe
+pinMode(tx, OUTPUT);
+}
 
-include <SoftwareSerial.h>                           //we have to include the SoftwareSerial library, or else we can't use it
-pinMode(pin12, OUTPUT);
-pinMode(pin13, INPUT);          //data incoming from the probe
+include <SoftwareSerial.h>                           //we have to include the SoftwareSerial library, or else we can't use i
 
-SoftwareSerial myserial(pin12, pin13);                      //define how the soft serial port is going to work
+SoftwareSerial myserial(rx, tx);                      //rx = pin to recieve serial data; tx = pin to transmit serial data
+                              
 
-
-String inputstring = "incoming data";                 //a string to hold incoming data from the PC
-String sensorstring = "holding data";                 //a string to hold the data from the Atlas Scientific product
+String inputstring = "Incoming Data";                 //a string to hold incoming data from the PC
+String sensorstring = "Holding Data";                 //a string to hold the data from the Atlas Scientific product
 boolean input_string_complete = false;                //have we received all the data from the PC
 boolean sensor_string_complete = false;               //have we received all the data from the Atlas Scientific product
 float DO;                                             //used to hold a floating point number that is the DO
