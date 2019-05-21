@@ -1,27 +1,23 @@
 //dissolved oxygen monitor
 
-const int rx = 13;  // input - data in at pin 13  OR IS IT CONST BYYTE RX = 13 PURPLE WIRE
-const int tx = 12;  // output - data out at pin 12 WHITE WIRE
-
-
-const int analogInPin = rx;   //analog input pin that the DO prob is attached to
-const int analogOutPin = tx;  //anlog output pin that the LEF is attached to 
+include <SoftwareSerial.h>                           //we have to include the SoftwareSerial library, or else we can't use i
 
 int sensorvalue = 0;   //value read from the DO probe
 int outputvaue = 0;    //value output to PWM
+
+const int rx = 13;  // input - data in at pin 13  OR IS IT CONST BYYTE RX = 13
+const int tx = 12;  // output - data out at pin 12
+SoftwareSerial myserial(rx, tx);                      //rx = pin to recieve serial data; tx = pin to transmit serial data
+
+//const int analogInPin = rx;   //analog input pin that the DO prob is attaced to
+//const int analogOutPin = tx;  //anlog output pin that the LEF is attached to 
 
 void setup() {
 pinMode(rx, INPUT);          //data incoming from the probe
 pinMode(tx, OUTPUT);
 }
-
-include <SoftwareSerial.h>                           //we have to include the SoftwareSerial library, or else we can't use i
-
-SoftwareSerial myserial(rx, tx);                      //rx = pin to recieve serial data; tx = pin to transmit serial data
-                              
-
 String inputstring = "Incoming Data";                 //a string to hold incoming data from the PC
-String sensorstring = "Holding Data from DO Probe";                 //a string to hold the data from the Atlas Scientific product
+String sensorstring = "Holding Data";                 //a string to hold the data from the Atlas Scientific product
 boolean input_string_complete = false;                //have we received all the data from the PC
 boolean sensor_string_complete = false;               //have we received all the data from the Atlas Scientific product
 float DO;                                             //used to hold a floating point number that is the DO
